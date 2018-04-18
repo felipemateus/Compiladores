@@ -64,7 +64,7 @@ void initLexame(char* palavra){
 
 	//}
 
-	cout<<lexema<<endl;
+	//cout<<lexema<<endl;
 }
 
 void compareLexema(char* lexema){
