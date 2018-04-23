@@ -11,6 +11,10 @@ int main(){
 
   scann.getChar();
 
+
+  Token token =  scann.getToken();
+
+  token.imprimeValues();
   //Token tok;
   //tok.numLiha = 20;
   //cout<<tok.numLiha;
