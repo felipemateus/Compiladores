@@ -5,6 +5,12 @@ using namespace std;
 class Token
 {
 public:
+  Token()
+  {
+      numLiha = 0;
+      tipoToken ="";
+      lexema = "";
+  }
   int numLiha;
   string tipoToken;
   string lexema;

@@ -17,31 +17,54 @@ public:
 
 
   ifstream* file;
+  int linhaAtual;
 
 
   Scanner(string fileName ){
 
     file = new ifstream(fileName.c_str());
+    linhaAtual = 1;
 
 
   }
 
-  char getChar(){
-    //while (file->get(buffer)) {
-      //cout << buffer;
-  //  }
-    cout<<"\n";
+  bool getChar(char *currentChar){
+    if(file->get(*currentChar)){
+      if(*currentChar == '\n'){
+        linhaAtual++;
+      }
+
+      return true;
+    }else{
+      return false;
+    }
+
+
+
   }
 
   Token getToken(){
     Token token;
-    string lexema = "";
+    token.numLiha =linhaAtual;
 
+    string lexema = "";
     char currentChar;
 
-    while (file->get(currentChar)) {
-      /* code */
+    while (getChar(&currentChar)) {
 
+      //Caso inicie com letra(letra | Digito)*
+      if(isalpha(currentChar) ){
+        lexema.append(1,currentChar);
+        getChar(&currentChar);
+        while(isalpha(currentChar) || isdigit(currentChar)){
+          lexema.append(1,currentChar);
+          getChar(&currentChar);
+
+        }
+        file->putback(currentChar);
+        token.lexema =  lexema;
+        break;
+      }
 
       if(currentChar != ' ' && currentChar!='\n'){
         lexema.append(1,currentChar);

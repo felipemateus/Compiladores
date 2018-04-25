@@ -9,7 +9,7 @@ using namespace std;
 int main(){
   Scanner scann("main.c");
 
-  scann.getChar();
+  //scann.getChar();
 
 
   Token token =  scann.getToken();
