@@ -66,6 +66,11 @@ public:
         break;
       }
 
+
+      //Caso seja um Dígito: digit digit*
+
+      //Símbolos léxicos
+
       if(currentChar != ' ' && currentChar!='\n'){
         lexema.append(1,currentChar);
         //std::cout << currentChar << '\n';
