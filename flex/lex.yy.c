@@ -375,8 +375,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 6
-#define YY_END_OF_BUFFER 7
+#define YY_NUM_RULES 9
+#define YY_END_OF_BUFFER 10
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -384,28 +384,29 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[17] =
+static yyconst flex_int16_t yy_accept[23] =
     {   0,
-        0,    0,    7,    5,    1,    5,    4,    2,    4,    4,
-        4,    3,    4,    2,    3,    0
+        0,    0,   10,    8,    7,    1,    8,    6,    6,    3,
+        6,    6,    6,    5,    7,    6,    2,    3,    4,    5,
+        4,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
+        1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    3,    1,    1,    1,    1,    1,    1,    4,
-        5,    6,    7,    8,    9,    1,   10,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,    1,   12,   13,
-       14,   15,    1,    1,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
-        1,    1,    1,    1,    1,    1,   16,   16,   16,   16,
+        1,    2,    4,    2,    1,    1,    1,    1,    1,    5,
+        6,    7,    8,    9,   10,    1,   11,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12,    1,   13,   14,
+       15,   16,    1,    1,   17,   17,   17,   17,   17,   17,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+       18,    1,   19,    1,    1,    1,   17,   17,   17,   17,
 
-       16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   17,    1,   18,    1,    1,    1,    1,    1,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+       17,   17,   20,    2,   21,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -422,40 +423,47 @@ static yyconst YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst YY_CHAR yy_meta[19] =
+static yyconst YY_CHAR yy_meta[22] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1
     } ;
 
-static yyconst flex_uint16_t yy_base[17] =
+static yyconst flex_uint16_t yy_base[23] =
     {   0,
-        0,    0,   29,   30,   30,   14,   30,   16,   12,    9,
-        8,    8,   30,   10,    9,   30
+        0,    0,   41,   42,   38,   42,   24,   42,   31,   10,
+       21,   20,   19,   11,   31,   42,   42,   12,   13,   14,
+       20,   42
     } ;
 
-static yyconst flex_int16_t yy_def[17] =
+static yyconst flex_int16_t yy_def[23] =
     {   0,
-       16,    1,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,    0
+       22,    1,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,   22,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,    0
     } ;
 
-static yyconst flex_uint16_t yy_nxt[49] =
+static yyconst flex_uint16_t yy_nxt[64] =
     {   0,
-        4,    5,    6,    7,    7,    7,    7,    7,    7,    7,
-        8,    7,    9,   10,   11,   12,    7,    7,   15,   15,
-       14,   13,   13,   15,   15,   13,   14,   13,   16,    3,
-       16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16
+        4,    5,    6,    7,    8,    8,    8,    8,    8,    8,
+        9,   10,    8,   11,   12,   13,   14,    8,    8,    8,
+        8,   18,   20,   18,   21,   20,   19,   20,   19,   19,
+       20,   21,   15,   16,   16,   16,   19,   17,   16,   15,
+       22,    3,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,   22,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,   22,   22
     } ;
 
-static yyconst flex_int16_t yy_chk[49] =
+static yyconst flex_int16_t yy_chk[64] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,   12,   15,
-       14,   11,   10,   12,   15,    9,    8,    6,    3,   16,
-       16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,   10,   14,   18,   19,   20,   10,   14,   18,   19,
+       20,   21,   15,   13,   12,   11,   21,    9,    7,    5,
+        3,   22,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,   22,   22,   22,   22,   22,   22,   22,   22,   22,
+       22,   22,   22
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -474,12 +482,17 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "scanner.lex"
 #line 3 "scanner.lex"
+
+  extern "C" int yylex();
+  //extern "C" FILE *yyin;
+
   int isKeyWord(char*);
   int countLines = 1;
+  FILE * fileWrite;
 /* KEY */
 /* SYM */
 /* ERROR */
-#line 483 "lex.yy.c"
+#line 496 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -697,10 +710,10 @@ YY_DECL
 		}
 
 	{
-#line 17 "scanner.lex"
+#line 22 "scanner.lex"
 
 
-#line 704 "lex.yy.c"
+#line 717 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -727,13 +740,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 17 )
+				if ( yy_current_state >= 23 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 30 );
+		while ( yy_base[yy_current_state] != 42 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -760,39 +773,99 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 19 "scanner.lex"
+#line 24 "scanner.lex"
 { countLines++;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "scanner.lex"
-{ printf("(%d,NUM,\"%s\")\n", countLines,yytext);}
+#line 27 "scanner.lex"
+{
+                                    int c= 0;
+                                    int linha = countLines;
+                                    while(true){
+                                      do{
+                                        if(c =='\n'){countLines++;}
+                                      }while((c=yyinput()) != '*' && c != EOF);
+
+
+                                      if(c == '*'){
+                                        while( (c=yyinput()) == '*' ){}
+
+                                        if( c == '/'){
+                                          //printf("(%d,Comentário,\"%s\")\n", countLines,yytext);
+                                          break;
+                                        }
+
+
+                                      }
+                                      if(c == EOF){
+                                        //printf("(%d,ERROR,\"%s\")\n", countLines,yytext);
+                                        fprintf(fileWrite,"(%d,ERROR,\"/*\")\n", linha);
+                                        break;
+                                      }
+
+                                  }
+
+                                  }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 23 "scanner.lex"
-{ if(isKeyWord(yytext))
-                                      printf("(%d,KEY,\"%s\")\n", countLines,yytext);
-                                    else
-                                      printf("(%d,ID,\"%s\")\n", countLines,yytext);
+#line 56 "scanner.lex"
+{
+                                    //printf("(%d,NUM,\"%s\")\n", countLines,yytext);
+                                    fprintf(fileWrite,"(%d,NUM,\"%s\")\n", countLines,yytext);
+
                                   }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 29 "scanner.lex"
-{ printf("(%d,SYM,\"%s\")\n", countLines,yytext);}
+#line 62 "scanner.lex"
+{
+                                    fprintf(fileWrite,"(%d,ERROR,\"%s\")\n", countLines,yytext);
+                                    return 0;
+                                  }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 31 "scanner.lex"
+#line 67 "scanner.lex"
+{ if(isKeyWord(yytext)){
+                                      //printf("(%d,KEY,\"%s\")\n", countLines,yytext);
+                                      fprintf(fileWrite,"(%d,KEY,\"%s\")\n", countLines,yytext);
+                                    }
+                                    else{
+                                      //printf("(%d,ID,\"%s\")\n", countLines,yytext);
+                                      fprintf(fileWrite,"(%d,ID,\"%s\")\n", countLines,yytext);
 
+                                    }
+                                  }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 33 "scanner.lex"
+#line 78 "scanner.lex"
+{
+                                    //printf("(%d,SYM,\"%s\")\n", countLines,yytext);
+                                    fprintf(fileWrite,"(%d,SYM,\"%s\")\n", countLines,yytext);
+                                  }
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 83 "scanner.lex"
+/* alooo */
+	YY_BREAK
+case 8:
+YY_RULE_SETUP
+#line 85 "scanner.lex"
+{
+                                    fprintf(fileWrite,"(%d,ERROR,\"%s\")\n", countLines,yytext);
+                                    return 0;
+                                  }
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 91 "scanner.lex"
 ECHO;
 	YY_BREAK
-#line 796 "lex.yy.c"
+#line 869 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1085,7 +1158,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 17 )
+			if ( yy_current_state >= 23 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1113,11 +1186,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 17 )
+		if ( yy_current_state >= 23 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 16);
+	yy_is_jam = (yy_current_state == 22);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1793,36 +1866,28 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 33 "scanner.lex"
+#line 91 "scanner.lex"
 
 
 
 int main(int argc,char* argv[]){
     if(argc > 1){
-      printf("\nNome do  arquivo: %s\n",argv[1]);
+      //printf("\nNome do  arquivo de leitura: %s\n",argv[1]);
+      //printf("\nNome do  arquivo de escrita: %s\n",argv[2]);
+
       yyin = fopen(argv[1],"r");
+      fileWrite = fopen(argv[2],"w");
     }
 
-    printf("Passeia aqui\n");
+    //printf("Passeia aqui\n");
     yylex();
-    printf("Numero de linhas : %d \n",countLines);
+    //printf("Numero de linhas : %d \n",countLines);
     return 0;
 
 }
 
 int isKeyWord(char* palavra){
 
-    /* if(strcmp == "else"||
-      palavra == "if"   ||
-      palavra == "int"  ||
-      palavra == "return"||
-      palavra == "void"||
-      palavra =="while"){
-        printf("Passeia aqui KEY\n");
-
-        return 1;
-
-      } */
 
       if(strcmp(palavra,"else") == 0  ||
          strcmp(palavra,"if") == 0    ||
