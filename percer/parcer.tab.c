@@ -1341,13 +1341,13 @@ yyreduce:
     {
         case 2:
 #line 102 "parcer.y" /* yacc.c:1646  */
-    {(yyval.program) = new Program((yyvsp[0].declaration_list));     printf("Program [\n");}
+    {(yyval.program) = new Program((yyvsp[0].declaration_list)); printf("Program [\n"); (yyval.program)->evaluate();}
 #line 1346 "parcer.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 104 "parcer.y" /* yacc.c:1646  */
-    {(yyval.declaration_list)->push_back((yyvsp[-1].declaration));printf("declaration_list1 ;\n");}
+    {(yyvsp[0].declaration_list)->push_back((yyvsp[-1].declaration)); (yyval.declaration_list) = (yyvsp[0].declaration_list); printf("declaration_list1 ;\n");}
 #line 1352 "parcer.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1395,7 +1395,7 @@ yyreduce:
 
   case 11:
 #line 120 "parcer.y" /* yacc.c:1646  */
-    {(yyval.func_declaration) = new Func_declaration((yyvsp[-5].type_specifier), (yyvsp[-4].string),(yyvsp[-2].params),(yyvsp[0].compound_stmt) ); printf("fUNC \n");}
+    {(yyval.func_declaration) = new Func_declaration((yyvsp[-5].type_specifier), (yyvsp[-4].string),(yyvsp[-2].params),(yyvsp[0].compound_stmt) ); printf("Func_declaration \n");}
 #line 1400 "parcer.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1437,7 +1437,7 @@ yyreduce:
 
   case 18:
 #line 135 "parcer.y" /* yacc.c:1646  */
-    { (yyval.compound_stmt) = new Compound_stmt((yyvsp[-2].local_declarations),(yyvsp[-1].statement_list));  printf("fUNC \n");}
+    { (yyval.compound_stmt) = new Compound_stmt((yyvsp[-2].local_declarations),(yyvsp[-1].statement_list));  printf("Compound_stmt \n");}
 #line 1442 "parcer.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1946,8 +1946,8 @@ yyreturn:
 int main(){
 	//number_node NUMBER(2);
 	//NUMBER.print();
-	Type_specifier *tipe = new Type_specifier(new string("VOID"));
-  tipe->evaluate();
+	//Type_specifier *tipe = new Type_specifier(new string("VOID"));
+  //tipe->evaluate();
 
 	yyparse();
 }

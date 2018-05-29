@@ -25,9 +25,9 @@ Program::Program(list<Declaration *> *declarations){
 void Program::evaluate(){
   cout << "Program name:"<<'\n';
 
-  cout << "Declaration List name:"<<'\n';
+  //cout << "Declaration List name:"<<'\n';
   for (it = declarations->begin() ; it !=declarations->end() ; it++)  {
-    cout << "Declaration 2 List name:"<<'\n';
+    //cout << "Declaration 2 List name:"<<'\n';
 
     (*it)->evaluate();
   }

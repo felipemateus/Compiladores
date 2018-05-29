@@ -63,7 +63,7 @@ symb    "+"|"-"|"*"|"/"|"<"|"<="|">"|">="|"=="|"!="|"="|"("|")"|"["|"]"|"{"|"}"|
 {digit}+                          {
                                     //printf("(%d,NUM,\"%s\")\n", countLines,yytext);
                                     //fprintf(fileWrite,"(%d,NUM,\"%s\")\n", countLines,yytext);
-                                    //yylval.string = atoi(yytext);
+                                    yylval.token = atoi(yytext);
                                     return NUM;
                                   }
 

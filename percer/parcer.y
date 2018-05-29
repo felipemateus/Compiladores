@@ -99,9 +99,9 @@
 
 %%
 
-program :							 	declaration_list																	{$$ = new Program($1);     printf("Program [\n");}
+program :							 	declaration_list																	{$$ = new Program($1); printf("Program [\n"); $$->evaluate();}
 											;
-declaration_list:  		 	declaration declaration_list											{$$->push_back($1);printf("declaration_list1 ;\n");}
+declaration_list:  		 	declaration declaration_list											{$2->push_back($1); $$ = $2; printf("declaration_list1 ;\n");}
 											| declaration																				{$$ = new list<Declaration*>();$$->push_back($1); printf("declaration_list2 ;\n");}
 											;
 declaration:				 	 	var_declaration																		{$$ = $1; printf("declaration1 ;\n");}
@@ -117,7 +117,7 @@ type_specifier 	: 			INT																								{$$ =  new Type_specifier(new st
 											;
 
 
-func_declaration: 				type_specifier ID '('params ')' compound_stmt		{$$ = new Func_declaration($1, $2,$4,$6 ); printf("fUNC \n");}
+func_declaration: 				type_specifier ID '('params ')' compound_stmt		{$$ = new Func_declaration($1, $2,$4,$6 ); printf("Func_declaration \n");}
 											;
 
 params: 								param_list																				{$$ =  $1;}
@@ -132,7 +132,7 @@ param:									type_specifier ID																	{$$ = new Param($1,$2); }
 											| type_specifier ID '['']'													{$$ = new Param($1,$2); }
 											;
 
-compound_stmt:				 '{' local_declarations statement_list '}'					{ $$ = new Compound_stmt($2,$3);  printf("fUNC \n");}
+compound_stmt:				 '{' local_declarations statement_list '}'					{ $$ = new Compound_stmt($2,$3);  printf("Compound_stmt \n");}
 											;
 
 
@@ -230,8 +230,8 @@ arg-list :					 		arg-list ',' expression													{$1->push_back($3); $$ = $
 int main(){
 	//number_node NUMBER(2);
 	//NUMBER.print();
-	Type_specifier *tipe = new Type_specifier(new string("VOID"));
-  tipe->evaluate();
+	//Type_specifier *tipe = new Type_specifier(new string("VOID"));
+  //tipe->evaluate();
 
 	yyparse();
 }
