@@ -490,6 +490,7 @@ char *yytext;
 
   #include <stdio.h>
   #define YY_DECL int yylex()
+  #include "class/node.h"
   #include "parcer.tab.h"
 
 
@@ -498,7 +499,7 @@ char *yytext;
   extern int countLines;
 
 
-#line 502 "lex.yy.c"
+#line 503 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -716,10 +717,10 @@ YY_DECL
 		}
 
 	{
-#line 26 "scanner.lex"
+#line 27 "scanner.lex"
 
 
-#line 723 "lex.yy.c"
+#line 724 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -779,12 +780,12 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 28 "scanner.lex"
+#line 29 "scanner.lex"
 { printf("Linha \n"); countLines++;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 31 "scanner.lex"
+#line 32 "scanner.lex"
 {
                                     int c= 0;
                                     int linha = countLines;
@@ -818,17 +819,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 62 "scanner.lex"
+#line 63 "scanner.lex"
 {
-                                    printf("(%d,NUM,\"%s\")\n", countLines,yytext);
+                                    //printf("(%d,NUM,\"%s\")\n", countLines,yytext);
                                     //fprintf(fileWrite,"(%d,NUM,\"%s\")\n", countLines,yytext);
-                                    yylval = atoi(yytext);
+                                    //yylval.string = atoi(yytext);
                                     return NUM;
                                   }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 69 "scanner.lex"
+#line 70 "scanner.lex"
 {
                                     //fprintf(fileWrite,"(%d,ERROR,\"%s\")\n", countLines,yytext);
                                     return 0;
@@ -836,10 +837,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 74 "scanner.lex"
+#line 75 "scanner.lex"
 {
                                       if(isKeyWord(yytext)){
-                                        printf("(%d,KEY,\"%s\")\n", countLines,yytext);
+                                        //printf("(%d,KEY,\"%s\")\n", countLines,yytext);
                                       }
 
                                       if(strcmp(yytext,"else")== 0)     {return ELSE;}
@@ -850,7 +851,7 @@ YY_RULE_SETUP
                                       if(strcmp(yytext,"while") == 0)    {return  WHILE;}
 
 
-                                      printf("scan ID %s\n",yytext);
+                                      //printf("scan ID %s\n",yytext);
 
                                       return ID;
 
@@ -858,12 +859,18 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 93 "scanner.lex"
+#line 94 "scanner.lex"
 {
-                                      if(strcmp(yytext,"<=")== 0)     {return LE;}
+                                      if(strcmp(yytext,"<=")== 0)       {return LE;}
                                       if(strcmp(yytext,">=") == 0)      {return GE ;}
                                       if(strcmp(yytext,"==") == 0 )     {return EQUAL; }
-                                      if(strcmp(yytext,"!=") == 0)   {return DIF; }
+                                      if(strcmp(yytext,"!=") == 0)      {return DIF; }
+                                      if(strcmp(yytext,">") == 0)      {return GRT; }
+                                      if(strcmp(yytext,"<") == 0)      {return LESS; }
+                                      if(strcmp(yytext,"+") == 0)      {return PLUS; }
+                                      if(strcmp(yytext,"-") == 0)      {return MINUS; }
+                                      if(strcmp(yytext,"*") == 0)      {return MUL; }
+                                      if(strcmp(yytext,"/") == 0)      {return DIV; }
 
 
                                     return yytext[0];
@@ -871,12 +878,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 103 "scanner.lex"
+#line 110 "scanner.lex"
 /* alooo */
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 105 "scanner.lex"
+#line 112 "scanner.lex"
 {
                                     //fprintf(fileWrite,"(%d,ERROR,\"%s\")\n", countLines,yytext);
                                     printf("(%d,ERROR,\"%s\")\n", countLines,yytext);
@@ -886,10 +893,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 113 "scanner.lex"
+#line 120 "scanner.lex"
 ECHO;
 	YY_BREAK
-#line 893 "lex.yy.c"
+#line 900 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1890,7 +1897,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 113 "scanner.lex"
+#line 120 "scanner.lex"
 
 
 

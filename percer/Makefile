@@ -6,8 +6,8 @@ parcer.tab.c parcer.tab.h: parcer.y
 lex.yy.c: scanner.lex
 	flex scanner.lex
 
-parcer:lex.yy.c parcer.tab.c parcer.tab.h exp.cpp exp.h
-		g++ -o parcer parcer.tab.c lex.yy.c exp.cpp -lfl
+parcer:lex.yy.c parcer.tab.c parcer.tab.h class/node.cpp class/node.h
+		g++ -o parcer parcer.tab.c lex.yy.c class/node.cpp -lfl
 
 clean:
 	rm parcer parcer.tab.c parcer.tab.h lex.yy.c

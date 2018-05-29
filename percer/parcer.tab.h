@@ -52,20 +52,67 @@ extern int yydebug;
     WHILE = 262,
     RETURN = 263,
     VOID = 264,
-    KEY = 265,
-    ID = 266,
-    SYB = 267,
-    ERROR = 268,
+    SYB = 265,
+    ERROR = 266,
+    KEY = 267,
+    ID = 268,
     LE = 269,
     GE = 270,
     EQUAL = 271,
-    DIF = 272
+    DIF = 272,
+    EQ = 273,
+    LESS = 274,
+    GRT = 275,
+    PLUS = 276,
+    MINUS = 277,
+    MUL = 278,
+    DIV = 279
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 15 "parcer.y" /* yacc.c:1909  */
+
+	Program *program;
+	Declaration *declaration;
+	Var_declaration * var_declaration;
+	Param *param;
+	Statement *statement;
+	Var *var;
+	Simple_expression *simple_expression;
+	Expression *expression;
+	Call *call;
+	Factor *factor;
+	Relop * relop;
+	Mulop *mulop;
+	Term  *term;
+	Addop *addop;
+	Addtive_expression *addtive_expression;
+	Expression_stmt *expression_stmt;
+	Selection_stmt *selection_stmt;
+	Iteration_stmt *iteration_stmt;
+	Return_stmt *return_stmt;
+	Compound_stmt *compound_stmt;
+	Type_specifier *type_specifier;
+	Func_declaration *func_declaration;
+	std::list<Declaration *> *declaration_list;
+	std::list<Expression *> *args_list;
+	Arg  *args;
+	std::list<Param *> *params;
+	std::list<Var_declaration *> *local_declarations;
+	std::list<Statement *> *statement_list;
+
+	std::string *string;
+	int token;
+
+#line 113 "parcer.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

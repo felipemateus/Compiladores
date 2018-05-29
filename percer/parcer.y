@@ -1,7 +1,7 @@
 %{
 		#include <stdio.h>
 		#include <stdlib.h>
-		#include "exp.h"
+		#include "class/node.h"
 
 		int yylex();
 		int yyparse();
@@ -9,19 +9,89 @@
 
 		int countLines = 1;
 
-		using namespace std;
+		//using namespace std;
 
 %}
+%union {
+	Program *program;
+	Declaration *declaration;
+	Var_declaration * var_declaration;
+	Param *param;
+	Statement *statement;
+	Var *var;
+	Simple_expression *simple_expression;
+	Expression *expression;
+	Call *call;
+	Factor *factor;
+	Relop * relop;
+	Mulop *mulop;
+	Term  *term;
+	Addop *addop;
+	Addtive_expression *addtive_expression;
+	Expression_stmt *expression_stmt;
+	Selection_stmt *selection_stmt;
+	Iteration_stmt *iteration_stmt;
+	Return_stmt *return_stmt;
+	Compound_stmt *compound_stmt;
+	Type_specifier *type_specifier;
+	Func_declaration *func_declaration;
+	std::list<Declaration *> *declaration_list;
+	std::list<Expression *> *args_list;
+	Arg  *args;
+	std::list<Param *> *params;
+	std::list<Var_declaration *> *local_declarations;
+	std::list<Statement *> *statement_list;
 
-%token NUM
-%token INT IF ELSE WHILE RETURN VOID
-%token KEY ID SYB ERROR
+	std::string *string;
+	int token;
+}
+
+%token<token> NUM
+%token<token> INT IF ELSE WHILE RETURN VOID
+%token<token> SYB ERROR
+%token<string> KEY ID
+
 /*  tokens de operadores com mais de character:
-  	LE  	"<="
-		GE  	">="
+		GRT		">"						PLUS 	"+"
+		LESS	"<"						MINUS	"-"
+		LE  	"<="					MUL		"*"
+		GE  	">="          DIV		"/"
 		EQUAL "=="
+		EQ     "="
 		DIF   "!="*/
-%token LE GE EQUAL DIF
+%token<string> LE GE EQUAL DIF EQ LESS GRT
+%token<token>PLUS MINUS MUL DIV
+
+%type <program> program
+%type <declaration_list> declaration_list
+%type <declaration> declaration
+%type	<var_declaration> var_declaration
+%type	<param> param
+%type	<params> params param_list
+%type <compound_stmt> compound_stmt
+%type <local_declarations> local_declarations
+%type <statement_list> statement_list
+%type	<statement> statement
+%type	<var> var
+%type <simple_expression> simple_expression
+%type	<expression> expression
+%type <args> args
+%type <args_list> arg-list
+%type <call> call
+%type <factor> factor
+%type <relop> relop
+%type <mulop> mulop
+%type <term> term
+%type <addop> addop
+%type <addtive_expression> addtive_expression
+%type <expression_stmt> expression_stmt
+%type <selection_stmt> selection_stmt
+%type <iteration_stmt> iteration_stmt
+%type <return_stmt> return_stmt
+%type <type_specifier> type_specifier
+%type <func_declaration> func_declaration
+
+
 %left '+' '-'
 %left '*' '/'
 
@@ -29,116 +99,126 @@
 
 %%
 
-program :							 	declaration_list												{printf("Program [\n");}
+program :							 	declaration_list																	{$$ = new Program($1);     printf("Program [\n");}
 											;
-declaration_list:  		 	declaration declaration_list						{printf("declaration_list1 ;\n");}
-											| declaration																					{printf("declaration_list2 ;\n");}
+declaration_list:  		 	declaration declaration_list											{$$->push_back($1);printf("declaration_list1 ;\n");}
+											| declaration																				{$$ = new list<Declaration*>();$$->push_back($1); printf("declaration_list2 ;\n");}
 											;
-declaration:				 	 	var_declaration													{printf("declaration1 ;\n");}
-											|	fun_declaration													{printf("declaration2 ;\n");}
-											;
-
-/* ---------------------------------------------------*/
-var_declaration : 			type_specifier ID	';'										{printf("var_declaration1 ;\n");}
-											| type_specifier ID '[' NUM ']' ';'				{printf("var_declaration2 ;\n");}
-											;
-type_specifier 	: 			INT																			{printf("INT tipo\n");}
-											| VOID
+declaration:				 	 	var_declaration																		{$$ = $1; printf("declaration1 ;\n");}
+											|	func_declaration																	{$$ = $1; printf("declaration2 ;\n");}
 											;
 
-/* ---------------------------------------------------*/
-
-fun_declaration: 				type_specifier ID '('params ')' compound_stmt		{printf("fUNC \n");}
-											;
-params: 								param_list
-											| VOID
-											;
-param_list: 						param_list ',' param
-											| param
-											;
-param:									type_specifier ID
-											| type_specifier ID '['']'
-											;
-/* ---------------------------------------------------*/
-
-compound_stmt:				 '{' local_declarations statement_list '}'				{printf("fUNC \n");}
+var_declaration : 			type_specifier ID	';'															{$$ = new Var_declaration($1,$2);    printf("var_declaration1 ;\n");}
+											| type_specifier ID '[' NUM ']' ';'									{$$ = new Var_declaration($1,$2); 	printf("var_declaration2 ;\n");}
 											;
 
-/* ---------------------------------------------------*/
-
-local_declarations : 		local_declarations var_declaration
-											| %empty
-											;
-statement_list : 				statement_list statement
-											| %empty
-											;
-/* ---------------------------------------------------*/
-
-statement :							expression_stmt
-											| compound_stmt
-											| selection_stmt
-              				| iteration_stmt
-											| return_stmt
-											;
-expression_stmt :				expression ';'
-											| ';'
-											;
-selection_stmt:				 	IF '(' expression ')' statement
-                  		| IF '(' expression ')' statement ELSE statement
-
-iteration_stmt:	  			WHILE '(' expression ')' statement
+type_specifier 	: 			INT																								{$$ =  new Type_specifier(new string("int"));}
+											| VOID																							{$$ =  new Type_specifier(new string("void"));}
 											;
 
-return_stmt :				 		RETURN ';'
-											| RETURN expression ';'
+
+func_declaration: 				type_specifier ID '('params ')' compound_stmt		{$$ = new Func_declaration($1, $2,$4,$6 ); printf("fUNC \n");}
 											;
 
-expression :				 		var '=' expression
-											| simple_expression
-											;
-var :				 						ID
-											| ID '[' expression ']'
+params: 								param_list																				{$$ =  $1;}
+											| VOID																							{$$ =  NULL;}
 											;
 
-simple_expression :			additive_expression relop additive_expression
-                      | additive_expression
-											;
-relop :							 		LE
-											| '<'
-											| '>'
-											| GE
-											| EQUAL
-											| DIF
+param_list: 						param_list ',' param															{$1->push_back($3); $$ = $1;}
+											| param																							{$$ =  new list<Param*>(); $$->push_back($1);}
 											;
 
-additive_expression :		additive_expression addop term
-											| term
-											;
-addop :				 					'+'
-											| '-'
-											;
-term :				 					term mulop factor
-											| factor
-											;
-mulop :									'*'
-											| '/'
+param:									type_specifier ID																	{$$ = new Param($1,$2); }
+											| type_specifier ID '['']'													{$$ = new Param($1,$2); }
 											;
 
-factor :							 '(' expression ')'
-											| var
-											| call
-											| NUM						{printf("NUM \n");}
+compound_stmt:				 '{' local_declarations statement_list '}'					{ $$ = new Compound_stmt($2,$3);  printf("fUNC \n");}
 											;
 
-call :				 					ID '(' args ')'
-											;
-args :				 					arg-list
-											| %empty
-											;
-arg-list :					 		arg-list ',' expression
-											| expression
+
+local_declarations : 		local_declarations var_declaration								{$1->push_back($2); $$=$1;}
+											| %empty																						{$$ = new list<Var_declaration*>();}
 											;
 
+statement_list : 				statement_list statement													{$1->push_back($2); $$ = $1;}
+											| %empty																						{$$ = new list<Statement*>();}
+											;
+
+statement :							expression_stmt																		{$$ = $1;}
+											| compound_stmt																			{$$ = $1;}
+											| selection_stmt																		{$$ = $1;}
+              				| iteration_stmt																		{$$ = $1;}
+											| return_stmt																				{$$ = $1;}
+											;
+
+expression_stmt :				expression ';'																		{$$ = new Expression_stmt($1);}
+											| ';'																								{$$ = NULL;}
+											;
+
+selection_stmt:				 	IF '(' expression ')' statement										{$$ = new Selection_stmt($3,$5);}
+                  		| IF '(' expression ')' statement ELSE statement		{$$ = new Selection_stmt($3,$5,$7);}
+
+iteration_stmt:	  			WHILE '(' expression ')' statement								{$$ =  new Iteration_stmt($3,$5);}
+											;
+
+return_stmt :				 		RETURN ';'																				{$$ = NULL;}
+											| RETURN expression ';'															{$$ = new Return_stmt($2);}
+											;
+
+expression :				 		var '=' expression																{$$ = new Expression($1,$3);}
+											| simple_expression																	{$$ = new Expression($1);}
+											;
+
+var :				 						ID																								{$$ = new Var($1);}
+											| ID '[' expression ']'															{$$ = new Var($1,$3);}
+											;
+
+simple_expression :			addtive_expression relop addtive_expression				{$$ = new Simple_expression($1,$2,$3);}
+                      | addtive_expression																{$$ = new Simple_expression($1);}
+											;
+
+relop :							 		LE																								{new Relop($1);}
+											| LESS																							{new Relop($1);}
+											| GRT																								{new Relop($1);}
+											| GE																								{new Relop($1);}
+											| EQUAL																							{new Relop($1);}
+											| DIF																								{new Relop($1);}
+											;
+
+addtive_expression :		addtive_expression addop term											{$$ = new Addtive_expression($1,$2,$3);}
+											| term																							{$$ = new Addtive_expression($1);}
+											;
+
+addop :				 					PLUS                                               {$$ = new Addop(new char('+'));}
+											| MINUS																							 {$$ = new Addop(new char('-'));}
+											;
+
+term :				 					term mulop factor																	{$$ = new Term($1,$2,$3); }
+											| factor																						{$$ = new Term($1);}
+											;
+
+
+mulop :									MUL																								{$$ = new Mulop(new char('*'));}
+											| DIV																								{$$ = new Mulop(new char('/'));}
+											;
+
+factor :							 '(' expression ')'																	{$$ = new Factor($2); }
+											| var																								{$$ = new Factor($1); }
+											| call																							{$$ = new Factor($1); }
+											| NUM																								{$$ = new Factor($1); printf("NUM \n");}
+											;
+
+call :				 					ID '(' args ')'																		{$$ = new Call($1,$3);}
+											;
+
+
+args :				 					arg-list																					{$$ = new Arg($1);}
+											| %empty																						{$$ = NULL;}
+											;
+
+arg-list :					 		arg-list ',' expression													{$1->push_back($3); $$ = $1;}
+											| expression																			{$$ = new list<Expression*>(); $$->push_back($1);}
+											;
 
 
 
@@ -148,8 +228,11 @@ arg-list :					 		arg-list ',' expression
 %%
 
 int main(){
-	number_node NUMBER(2);
-	NUMBER.print();
+	//number_node NUMBER(2);
+	//NUMBER.print();
+	Type_specifier *tipe = new Type_specifier(new string("VOID"));
+  tipe->evaluate();
+
 	yyparse();
 }
 

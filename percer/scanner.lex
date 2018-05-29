@@ -5,6 +5,7 @@
 
   #include <stdio.h>
   #define YY_DECL int yylex()
+  #include "class/node.h"
   #include "parcer.tab.h"
 
 
@@ -60,9 +61,9 @@ symb    "+"|"-"|"*"|"/"|"<"|"<="|">"|">="|"=="|"!="|"="|"("|")"|"["|"]"|"{"|"}"|
                                   }
 
 {digit}+                          {
-                                    printf("(%d,NUM,\"%s\")\n", countLines,yytext);
+                                    //printf("(%d,NUM,\"%s\")\n", countLines,yytext);
                                     //fprintf(fileWrite,"(%d,NUM,\"%s\")\n", countLines,yytext);
-                                    yylval = atoi(yytext);
+                                    //yylval.string = atoi(yytext);
                                     return NUM;
                                   }
 
@@ -73,7 +74,7 @@ symb    "+"|"-"|"*"|"/"|"<"|"<="|">"|">="|"=="|"!="|"="|"("|")"|"["|"]"|"{"|"}"|
 
 {letter}({letter}|{digit})*       {
                                       if(isKeyWord(yytext)){
-                                        printf("(%d,KEY,\"%s\")\n", countLines,yytext);
+                                        //printf("(%d,KEY,\"%s\")\n", countLines,yytext);
                                       }
 
                                       if(strcmp(yytext,"else")== 0)     {return ELSE;}
@@ -84,17 +85,23 @@ symb    "+"|"-"|"*"|"/"|"<"|"<="|">"|">="|"=="|"!="|"="|"("|")"|"["|"]"|"{"|"}"|
                                       if(strcmp(yytext,"while") == 0)    {return  WHILE;}
 
 
-                                      printf("scan ID %s\n",yytext);
+                                      //printf("scan ID %s\n",yytext);
 
                                       return ID;
 
                                   }
 
 {symb}                            {
-                                      if(strcmp(yytext,"<=")== 0)     {return LE;}
+                                      if(strcmp(yytext,"<=")== 0)       {return LE;}
                                       if(strcmp(yytext,">=") == 0)      {return GE ;}
                                       if(strcmp(yytext,"==") == 0 )     {return EQUAL; }
-                                      if(strcmp(yytext,"!=") == 0)   {return DIF; }
+                                      if(strcmp(yytext,"!=") == 0)      {return DIF; }
+                                      if(strcmp(yytext,">") == 0)      {return GRT; }
+                                      if(strcmp(yytext,"<") == 0)      {return LESS; }
+                                      if(strcmp(yytext,"+") == 0)      {return PLUS; }
+                                      if(strcmp(yytext,"-") == 0)      {return MINUS; }
+                                      if(strcmp(yytext,"*") == 0)      {return MUL; }
+                                      if(strcmp(yytext,"/") == 0)      {return DIV; }
 
 
                                     return yytext[0];

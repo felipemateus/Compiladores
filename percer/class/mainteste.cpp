@@ -8,17 +8,21 @@ using namespace std;
 
 
 int main(){
-  Declaration *um = new Declaration(2);
-  Declaration *dois = new Declaration(2);
+
+  Type_specifier *tipe = new Type_specifier(new string("VOID"));
+  tipe->evaluate();
+  /*
+  Var_declaration *um = new Var_declaration(Type_specifier.INT,"ID");
+  Var_declaration *dois = new Var_declaration(&INT,"ID");
 
   list<Declaration *> *declra = new list<Declaration *>() ;
 
   declra->push_back(um);
   declra->push_back(dois);
 
-  Declaration_list *declis = new Declaration_list(declra);
 
-  Program *prog = new Program(declis);
+  Program *prog = new Program(declra);
 
   prog->evaluate();
+  */
 }
